@@ -13,3 +13,11 @@ $('div#events-container').append(events.map((event) =>
     </div>`)
 ))
 
+axios.post('https://script.google.com/macros/s/AKfycbwFPH7SSqFZ3Tn-nDR4DGlkzGMJK0KnRSXlO7wY2QTgfqapdoc/exec')
+    .then((res) => {
+        console.log(res)
+        $('body').append(res)
+    }).catch((error) => {
+        console.error(error)
+    })
+
