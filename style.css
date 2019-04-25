@@ -1,3 +1,7 @@
 body {
   background-color: lightblue;
 }
+
+.event-card {
+  margin: 7px 7px;
+}
