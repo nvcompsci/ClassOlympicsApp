@@ -5,3 +5,8 @@ body {
 .event-card {
   margin: 7px 7px;
 }
+
+.event-card button {
+  width: 8rem;
+  margin: 7px 7px;
+}
