@@ -1,12 +1,26 @@
 body {
-  background-color: lightblue;
+  background-image: linear-gradient(to right, black, gold);
+}
+
+header {
+  text-align: center;
+}
+
+header, form {
+  color: white;
 }
 
 .event-card {
   margin: 7px 7px;
+  display: inline-block;
+  width: 22%;
+  text-align: center;
 }
 
 .event-card button {
-  width: 8rem;
   margin: 7px 7px;
+}
+
+.event-card ul {
+  display: none;
 }

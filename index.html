@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap 4 Example</title>
+  <title>Class Olympics Sign Up App</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -14,9 +14,30 @@
 <body>
 
 <div class="container">
-  <h1>Class Olympics VI</h1>
-  <h2>Sign Up App</h2>
-  <form><input type="number" min=500000 max=999999 step=1 placeholder="Student ID#" /><br><input type="submit" /></form>
+  <header>
+    <h1>Class Olympics VI</h1>
+    <h2>Sign Up App</h2>
+  </header>
+  <form>
+    <label for="name">Student ID#</label>
+    <input name="idnum" type="number" min=500000 max=999999 step=1 placeholder="Student ID#" />
+    <button id="login" class="btn btn-primary">Login</button>
+    <br>
+    <label for="first"class="hideAtStart">First Name</label>
+    <input name="first" class="hideAtStart"/><br>
+    <label for="last"class="hideAtStart">Last Name</label>
+    <input name="last" class="hideAtStart"/><br>
+    <label for="grade"class="hideAtStart">Grade Level</label>
+    <input name="grade" class="hideAtStart"/><br>
+    <label for="event" class="hideAtStart">Event</label>
+    <select name="event" class="hideAtStart">
+      <option>Volleyball</option>
+      <option>Black Jack</option>
+      <option>Putt Putt</option>
+    </select>
+    <br>
+    <button id="signup" class="hideAtStart btn btn-primary">Sign Up</button>
+  </form>
   <div id='events-container'></div>
 </div>
 <script src="script.js"></script>
