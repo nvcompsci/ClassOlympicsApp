@@ -2,7 +2,7 @@ body {
   background-image: linear-gradient(to right, black, gold);
 }
 
-header {
+header, h1, h3, h6 {
   text-align: center;
 }
 
@@ -14,7 +14,6 @@ header, form {
   margin: 7px 7px;
   display: inline-block;
   width: 22%;
-  text-align: center;
 }
 
 .event-card button {
@@ -23,4 +22,9 @@ header, form {
 
 .event-card ul {
   display: none;
+  list-style-type: none; 
+}
+
+.expanded {
+  width: 45%
 }

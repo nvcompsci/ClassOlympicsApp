@@ -19,7 +19,7 @@ axios.post(url + "?route=getEvents")
     data = res.data;
     $('#events-container').append(createEventCards(res.data.events))
     $('div.event-card button').click(handleButtonClick)
-    $('div.event-card').hover(mouseEnterCard, mouseLeaveCard)
+    $('div.event-card').click(handleCardClick)
 }).catch((error) => {
     document.append(error);
     console.error(error)
@@ -52,7 +52,7 @@ $("button#login").click(e => {
             $('input[name=first]').val(res.data.student[data.n.s['First_Name']])
             $('input[name=last]').val(res.data.student[data.n.s['Last_Name']])
             $('input[name=grade]').val(res.data.student[data.n.s['Grade_Level']])
-            $('select').val(res.data.student[data.n.s['Event']])
+            $('input[name=event]').val(res.data.student[data.n.s['Event']])
             $('.hideAtStart').show()
             $('#events-container').empty().append(createEventCards(data.events))
             $('div.event-card button').click(handleButtonClick)
@@ -63,7 +63,7 @@ $("button#login").click(e => {
 
 $("button#signup").click(e => {
     e.preventDefault()
-    const event = $('select').val()
+    const event = $('input[name=event]').val()
     const sid = $('input[type="number"]').val()
     axios.post(`${url}?route=signup&student=${sid}&event=${event}`)
         .then((res) => {
@@ -80,17 +80,12 @@ function handleButtonClick(e) {
     let thisElem = $(e.target)
     thisElem.toggleClass('btn-primary').toggleClass('btn-success')
     let thisEvent = thisElem.siblings('h6').text();
-    $("select").val(thisEvent).show()
+    $("input[name=event]").val(thisEvent).show()
 }
 
-function mouseEnterCard() {
+function handleCardClick() {
     $(this).children('ul').toggle()
-    $(this).css("width","45%")
-}
-
-function mouseLeaveCard() {
-    $(this).children('ul').toggle()
-    $(this).css("width","22%")
+    $(this).toggleClass("expanded")
 }
 
 function headerInds(headers) {
