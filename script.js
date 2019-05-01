@@ -17,9 +17,10 @@ axios.post(url + "?route=getEvents")
 .then((res) => {
     console.log(res)
     data = res.data;
-    $('#events-container').append(createEventCards(res.data.events))
+    $('#events-container').empty().append(createEventCards(res.data.events))
     $('div.event-card button').click(handleButtonClick)
     $('div.event-card').click(handleCardClick)
+    $('div.event-card').first().remove()
 }).catch((error) => {
     document.append(error);
     console.error(error)
@@ -30,10 +31,9 @@ return events.map((event) =>
     $(`<div id='${event[h.name]}' class='event-card card'>
         <h6>${event[h.name]}</h6>
         <ul>
-            <li>${event[h.desc]}</li>
-            <li>${event[h.location]}</li>
-            <li>${event[h.teachers]}</li>
-            <li>${event[h.spots]}</li>
+            <li><strong>Description:</strong> ${event[h.desc]}</li>
+            <li><strong>Location:</strong> ${event[h.location]}</li>
+            <li><strong>Teacher(s):</strong> ${event[h.teachers]}</li>
         </ul>
         <button type=button class='btn btn-primary'>Select</button>
     </div>`)
@@ -56,6 +56,8 @@ $("button#login").click(e => {
             $('.hideAtStart').show()
             $('#events-container').empty().append(createEventCards(data.events))
             $('div.event-card button').click(handleButtonClick)
+            $('div.event-card').click(handleCardClick)
+            $('div.event-card').first().remove()
         }).catch((error) => {
             console.error(error)
         })

@@ -6,18 +6,28 @@ header, h1, h3, h6 {
   text-align: center;
 }
 
-header, form {
+body {
   color: white;
+}
+
+div.alert {
+  margin: 10px auto;
+  width: 66%;
 }
 
 .event-card {
   margin: 7px 7px;
   display: inline-block;
   width: 22%;
+  min-width: 100px;
+  color: black;
 }
 
 .event-card button {
-  margin: 7px 7px;
+  display: block;
+  margin: 7px auto;
+  padding: 2px;
+  font-size: 75%;
 }
 
 .event-card ul {
@@ -26,5 +36,5 @@ header, form {
 }
 
 .expanded {
-  width: 45%
+  width: 66%
 }
