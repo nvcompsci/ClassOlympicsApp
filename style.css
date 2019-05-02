@@ -36,5 +36,6 @@ div.alert {
 }
 
 .expanded {
-  width: 66%
+  width: 66%;
+  min-width: 300px;
 }
