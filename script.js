@@ -95,7 +95,9 @@ $("button#login").click(e => {
 $("button#signup").click(e => {
     e.preventDefault()
     const event = $('input[name=selection]').val()
-    const sid = $('input[type="number"]').val()
+    if (profile === undefined)
+        alert('You must be signed into your school account through Google to submit.')
+    const sid = profile.getEmail().split('@')[0]
     axios.post(`${url}?route=signup&student=${sid}&event=${event}`)
         .then((res) => {
             data.spots = res.data.spots
@@ -139,10 +141,10 @@ function handleCardClick() {
 
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId());
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail());
+    //console.log('ID: ' + profile.getId());
+    //console.log('Name: ' + profile.getName());
+    //console.log('Image URL: ' + profile.getImageUrl());
+    //console.log('Email: ' + profile.getEmail());
   }
 
 function headerInds(headers) {
