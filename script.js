@@ -40,6 +40,23 @@ return events.map((event) =>
 )
 }
 
+function disableEmptyEvents() {
+    const grade = data.student[data.n.s['Grade_Level']]
+    data.spots.filter(spotData => spotData[data.n.spots[grade]] <= 0)
+        .forEach(spotData => {
+            const event = spotData[0]
+            disableCard( $(`div[id='${event}']`) )    
+            console.log(`disable ${event}`)
+        })
+}
+
+function disableCard($card) {
+    $card.addClass('bg-dark')
+        .children('button')
+            .prop("disabled",true)
+            .text('Full')
+}
+
 $("button#login").click(e => {
     e.preventDefault()
     const sid = $('input[type="number"]').val()
@@ -53,41 +70,66 @@ $("button#login").click(e => {
             $('input[name=last]').val(res.data.student[data.n.s['Last_Name']])
             $('input[name=grade]').val(res.data.student[data.n.s['Grade_Level']])
             $('input[name=event]').val(res.data.student[data.n.s['Event']])
+            if (res.data.student[data.n.s['Event']]) {
+                $('button#signup').text('Change Event')
+                $('input[name=event]').removeClass('bg-danger').addClass('bg-success')
+            } else
+                $('input[name=event]').addClass('bg-danger')
             $('.hideAtStart').show()
             $('#events-container').empty().append(createEventCards(data.events))
             $('div.event-card button').click(handleButtonClick)
             $('div.event-card').click(handleCardClick)
             $('div.event-card').first().remove()
+            disableEmptyEvents()
+            $('div#loginError').remove()
         }).catch((error) => {
+            const $alert = $(
+                `<div id='loginError' class='alert alert-danger'>
+                <strong>Login Error!</strong> ${error}
+                </div>`)
+            $('button#login').after($alert)
             console.error(error)
         })
 })
 
 $("button#signup").click(e => {
     e.preventDefault()
-    const event = $('input[name=event]').val()
+    const event = $('input[name=selection]').val()
     const sid = $('input[type="number"]').val()
     axios.post(`${url}?route=signup&student=${sid}&event=${event}`)
         .then((res) => {
             data.spots = res.data.spots
             data.student = res.data.student
             data.n = res.data.n
+            if (res.data.result == 400)
+                throw new Error()
+            $('input[name=event]').val(data.student[data.n.s['Event']])
+                .removeClass('bg-danger')
+                .addClass('bg-success')
             console.log(res)
         }).catch((error) => {
+            const $alert = $(
+                `<div id='submitError' class='alert alert-danger'>
+                <strong>Request Error!</strong> ${error}
+                </div>`)
+            $('button#signup').after($alert)
             console.error(error)
         })
 })
 
 function handleButtonClick(e) {
     let thisElem = $(e.target)
-    thisElem.toggleClass('btn-primary').toggleClass('btn-success')
+    $('.event-card button').removeClass('btn-success').addClass('btn-primary')
+    thisElem.addClass('btn-success')
     let thisEvent = thisElem.siblings('h6').text();
-    $("input[name=event]").val(thisEvent).show()
+    $("input[name=selection]").val(thisEvent).show()
 }
 
-function handleCardClick() {
-    $(this).children('ul').toggle()
-    $(this).toggleClass("expanded")
+function handleCardClick() {   
+    $('.event-card').removeClass('expanded')
+        .children('ul').hide()
+    $(this).addClass("expanded")
+        .children('ul').show()
 }
 
 function headerInds(headers) {
