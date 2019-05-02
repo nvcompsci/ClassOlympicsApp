@@ -106,6 +106,11 @@ $("button#signup").click(e => {
             $('input[name=event]').val(data.student[data.n.s['Event']])
                 .removeClass('bg-danger')
                 .addClass('bg-success')
+            const $alert = $(
+                `<div id='submitSuccess' class='alert alert-success'>
+                <strong>Success!</strong> You are now signed up for ${data.student[data.n.s['Event']]}
+                </div>`)
+            $('button#signup').after($alert)
             console.log(res)
         }).catch((error) => {
             const $alert = $(
