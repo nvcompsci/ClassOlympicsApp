@@ -137,6 +137,14 @@ function handleCardClick() {
         .children('ul').show()
 }
 
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId());
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail());
+  }
+
 function headerInds(headers) {
     var inds = {};
     for (var i = 0; i < headers.length; i++) {

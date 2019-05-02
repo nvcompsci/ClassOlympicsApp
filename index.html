@@ -4,8 +4,10 @@
   <title>Class Olympics Sign Up App</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-signin-client_id" content="1022094754028-dpd9nitepcv857gsic9hmlqlbl6er64t.apps.googleusercontent.com">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="style.css">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -23,6 +25,7 @@
     <label for="name">Student ID#</label>
     <input name="idnum" type="number" size="6" min=500000 max=999999 step=1 placeholder="######" />
     <button id="login" class="btn btn-primary">Login</button>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
     <br>
     <label for="first"class="hideAtStart">First Name</label>
     <input name="first" class="hideAtStart" disabled/><br>
