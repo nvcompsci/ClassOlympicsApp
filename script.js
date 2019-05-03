@@ -10,6 +10,7 @@ const h = {
 }
 
 let data = {}
+var profile = undefined
 
 $('.hideAtStart').hide()
 
@@ -95,16 +96,28 @@ $("button#login").click(e => {
 $("button#signup").click(e => {
     e.preventDefault()
     const event = $('input[name=selection]').val()
-    if (profile === undefined)
-        alert('You must be signed into your school account through Google to submit.')
+    if (profile === undefined) {
+        const $alert = $(
+            `<div id='oauthMissing' class='alert alert-danger'>
+            You must be signed into your <strong>school account</strong> through Google to submit.
+            </div>`)
+        $('button#signup').after($alert)
+    } else {
+        const $alert = $(
+            `<div id='sendingRequest' class='alert alert-warning'>
+            Submitting request...
+            </div>`)
+        $('button#signup').after($alert)
+    }
     const sid = profile.getEmail().split('@')[0]
     axios.post(`${url}?route=signup&student=${sid}&event=${event}`)
         .then((res) => {
             data.spots = res.data.spots
             data.student = res.data.student
             data.n = res.data.n
+            $('#sendingRequest').remove()
             if (res.data.result == 400)
-                throw new Error()
+                throw new Error('Sorry, no spots are left in that event.')
             $('input[name=event]').val(data.student[data.n.s['Event']])
                 .removeClass('bg-danger')
                 .addClass('bg-success')
@@ -140,7 +153,7 @@ function handleCardClick() {
 }
 
 function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
+    profile = googleUser.getBasicProfile();
     //console.log('ID: ' + profile.getId());
     //console.log('Name: ' + profile.getName());
     //console.log('Image URL: ' + profile.getImageUrl());
