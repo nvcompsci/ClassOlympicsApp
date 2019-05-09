@@ -35,11 +35,24 @@ return events.map((event) =>
             <li><strong>Description:</strong> ${event[h.desc]}</li>
             <li><strong>Location:</strong> ${event[h.location]}</li>
             <li><strong>Teacher(s):</strong> ${event[h.teachers]}</li>
+            <li><strong>Instructions:</strong> ${ (event[h.instructions]) ? event[h.instructions] : ''}
         </ul>
         <button type=button class='btn btn-primary'>Select</button>
     </div>`)
 )
 }
+
+function createMyEventCard(event) {
+    return $(`<div class='my-event-card card'>
+            <h6>My Event: ${event[h.name]}</h6>
+            <ul>
+                <li><strong>Description:</strong> ${event[h.desc]}</li>
+                <li><strong>Location:</strong> ${event[h.location]}</li>
+                <li><strong>Teacher(s):</strong> ${event[h.teachers]}</li>
+                <li><strong>Instructions:</strong> ${ (event[h.instructions]) ? event[h.instructions] : ''}
+            </ul>
+        </div>`)    
+    }
 
 function disableEmptyEvents() {
     const grade = data.student[data.n.s['Grade_Level']]
@@ -71,9 +84,12 @@ $("button#login").click(e => {
             $('input[name=last]').val(res.data.student[data.n.s['Last_Name']])
             $('input[name=grade]').val(res.data.student[data.n.s['Grade_Level']])
             $('input[name=event]').val(res.data.student[data.n.s['Event']])
+            const myEventName = res.data.student[data.n.s['Event']]
             if (res.data.student[data.n.s['Event']]) {
                 $('button#signup').text('Change Event')
                 $('input[name=event]').removeClass('bg-danger').addClass('bg-success')
+                const myEvent = data.events.filter(event => event[0] == myEventName)[0]
+                $('form').after(createMyEventCard(myEvent))
             } else
                 $('input[name=event]').addClass('bg-danger')
             $('.hideAtStart').show()
@@ -126,6 +142,10 @@ $("button#signup").click(e => {
                 <strong>Success!</strong> You are now signed up for ${data.student[data.n.s['Event']]}
                 </div>`)
             $('button#signup').after($alert)
+            $('div.my-event-card').remove()
+            const myEventName = data.student[data.n.s['Event']]
+            const myEvent = data.events.filter(event => event[0] == myEventName)[0]
+            $('form').after(createMyEventCard(myEvent))
             console.log(res)
         }).catch((error) => {
             const $alert = $(

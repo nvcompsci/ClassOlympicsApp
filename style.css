@@ -23,6 +23,10 @@ div.alert {
   color: black;
 }
 
+.my-event-card {
+  color: black;
+}
+
 .event-card button {
   display: block;
   margin: 7px auto;
