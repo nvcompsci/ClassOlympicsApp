@@ -89,7 +89,7 @@ $("button#login").click(e => {
                 $('button#signup').text('Change Event')
                 $('input[name=event]').removeClass('bg-danger').addClass('bg-success')
                 const myEvent = data.events.filter(event => event[0] == myEventName)[0]
-                $('form').after(createMyEventCard(myEvent))
+                $('input[name=event]').after(createMyEventCard(myEvent))
             } else
                 $('input[name=event]').addClass('bg-danger')
             $('.hideAtStart').show()
@@ -145,7 +145,7 @@ $("button#signup").click(e => {
             $('div.my-event-card').remove()
             const myEventName = data.student[data.n.s['Event']]
             const myEvent = data.events.filter(event => event[0] == myEventName)[0]
-            $('form').after(createMyEventCard(myEvent))
+            $('input[name=event]').after(createMyEventCard(myEvent))
             console.log(res)
         }).catch((error) => {
             const $alert = $(
