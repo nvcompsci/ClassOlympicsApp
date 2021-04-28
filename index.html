@@ -24,7 +24,12 @@
     <label for="name"><span class="badge badge-info">Step 1: Login</span>Student ID#</label>
     <input name="idnum" type="number" size="6" min=500000 max=999999 step=1 placeholder="######" />
     <button id="login" class="btn btn-primary">Login</button>
-    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-onfailure="onFailure"><span class="badge badge-info">Step 2: Verify Account</span></div>
+    <div class="g-signin2" 
+      data-onsuccess="onSignIn" 
+      data-theme="dark" 
+      data-onfailure="onFailure"
+      data-onload="onGoogleLoad">
+      <span class="badge badge-info">Step 2: Verify Account</span></div>
     <br>
     <label for="first"class="hideAtStart">First Name</label>
     <input name="first" class="hideAtStart" disabled/><br>
@@ -53,7 +58,7 @@
 <div>
   <a name="license">CC-BY-SA 2019 Northivew Computer Programming</a>
   <br>
-  <a name="build">Build 25: 4/27/21 11:07PM</a>
+  <a name="build">Build 26: 4/27/21 11:23PM</a>
 </div>
 <script src="script.js"></script>
 </body>

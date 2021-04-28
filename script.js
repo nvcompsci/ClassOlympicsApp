@@ -1,4 +1,4 @@
-//Build 25: 4/27/21 11:07PM
+//Build 26: 4/27/21 11:23PM
 const url = 'https://script.google.com/macros/s/AKfycbwFPH7SSqFZ3Tn-nDR4DGlkzGMJK0KnRSXlO7wY2QTgfqapdoc/exec'
 const devUrl = 'https://script.google.com/a/sylvaniaschools.org/macros/s/AKfycbx-fJD1dQlWlvZz9eg0YH4ahICo96YWlQLVSgxYLrY/dev'
 
@@ -114,7 +114,7 @@ $("button#login").click(e => {
         }).catch((error) => {
             const $alert = $(
                 `<div id='loginError' class='alert alert-danger'>
-                <strong>Login Error!</strong> ${error}
+                <strong>Login Error! This is not a valid account.</strong><em>Error: ${error}</em>
                 </div>`)
             $('button#login').after($alert)
             console.error(error)
@@ -169,7 +169,7 @@ $("button#signup").click(e => {
         }).catch((error) => {
             const $alert = $(
                 `<div id='submitError' class='alert alert-danger'>
-                <strong>Request Error!</strong> ${error}
+                <strong>Sorry! There was an error registering.</strong><em>Error: ${error}</em>
                 </div>`)
             $('button#signup').after($alert)
             console.error(error)
@@ -223,7 +223,11 @@ function onSignIn(googleUser) {
     //console.log('Name: ' + profile.getName());
     //console.log('Image URL: ' + profile.getImageUrl());
     //console.log('Email: ' + profile.getEmail());
-  }
+}
+
+function onGoogleLoad() {
+    $('.g-signin2 span').html('<span class="badge badge-info">Step 2: Verify Account</span>')
+}
 
 function onFailure(err) {
     console.error(err)
