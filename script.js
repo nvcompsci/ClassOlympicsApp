@@ -1,8 +1,10 @@
+//BUILD 23: 4/27/21 11PM
 const url = 'https://script.google.com/macros/s/AKfycbwFPH7SSqFZ3Tn-nDR4DGlkzGMJK0KnRSXlO7wY2QTgfqapdoc/exec'
 const devUrl = 'https://script.google.com/a/sylvaniaschools.org/macros/s/AKfycbx-fJD1dQlWlvZz9eg0YH4ahICo96YWlQLVSgxYLrY/dev'
 
 const h = {
     'name':0,
+    'isCompetitive':1,
     'teachers':2,
     'spots':3,
     'location':5,
@@ -11,6 +13,8 @@ const h = {
 
 let data = {}
 var profile = undefined
+let currentSelection = null
+let student_id = null
 
 $('.hideAtStart').hide()
 
@@ -30,7 +34,8 @@ axios.post(url + "?route=getEvents")
 function createEventCards(events) {
 return events.map((event) => 
     $(`<div id='${event[h.name]}' class='event-card card'>
-        <h6>${event[h.name]}</h6>
+    ${event[h.isCompetitive] == false ? "<span class='badge badge-info'>Non-Competitive</span>" : ""}    
+    <h6>${event[h.name]}</h6>        
         <ul>
             <li><strong>Description:</strong> ${event[h.desc]}</li>
             <li><strong>Location:</strong> ${event[h.location]}</li>
@@ -126,7 +131,7 @@ $("button#signup").click(e => {
     } else {
         const $alert = $(
             `<div id='sendingRequest' class='alert alert-warning'>
-            Submitting request...
+            <span class="spinner-grow spinner-grow-sm text-warning"></span>Submitting request...
             </div>`)
         $('button#signup').after($alert)
     }
@@ -142,10 +147,17 @@ $("button#signup").click(e => {
             $('input[name=event]').val(data.student[data.n.s['Event']])
                 .removeClass('bg-danger')
                 .addClass('bg-success')
+            $("input[name=selection]")
+                .removeClass('bg-warning')
+                .addClass('bg-success')
             const $alert = $(
                 `<div id='submitSuccess' class='alert alert-success'>
                 <strong>Success!</strong> You are now signed up for ${data.student[data.n.s['Event']]}
                 </div>`)
+            $('button#signup')
+                .text('Change Event')
+                .removeClass('bg-warning')
+                .addClass('bg-primary')
             $('button#signup').after($alert)
             $('div.my-event-card').remove()
             const myEventName = data.student[data.n.s['Event']]
@@ -167,7 +179,25 @@ function handleButtonClick(e) {
     $('.event-card button').removeClass('btn-success').addClass('btn-primary')
     thisElem.addClass('btn-success')
     let thisEvent = thisElem.siblings('h6').text();
-    $("input[name=selection]").val(thisEvent).show()
+    currentSelection = thisEvent
+    $("input[name=selection]")
+        .val(thisEvent)
+        .show()
+        .addClass('bg-warning')
+    checkReadyToSubmit()
+}
+
+function onReadyToSubmit() {
+    $('button#signup')
+        .removeClass('bg-primary')
+        .addClass('bg-warning')
+        .after($('<span class="spinner-grow spinner-grow-sm text-warning"></span>'))
+        .removeAttr('disabled')
+}
+
+function checkReadyToSubmit() {
+    if (profile && currentSelection)
+        onReadyToSubmit()
 }
 
 function handleCardClick() {   
@@ -179,6 +209,8 @@ function handleCardClick() {
 
 function onSignIn(googleUser) {
     profile = googleUser.getBasicProfile();
+    $('.g-signin2 span').html('<span class="badge badge-info">Step 2: Verify Account</span>')
+    checkReadyToSubmit()
     //console.log('ID: ' + profile.getId());
     //console.log('Name: ' + profile.getName());
     //console.log('Image URL: ' + profile.getImageUrl());
@@ -187,7 +219,7 @@ function onSignIn(googleUser) {
 
 function onFailure(err) {
     console.error(err)
-    $('.g-signin2 span').html('<span class="badge badge-warning">ERROR! Step 4: Verify Google Account</span>')
+    $('.g-signin2 span').html('<span class="badge badge-warning">ERROR! Step 2: Verify Account</span>')
 }
 
 function headerInds(headers) {
