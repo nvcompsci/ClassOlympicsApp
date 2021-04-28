@@ -1,4 +1,4 @@
-//Build 26: 4/27/21 11:23PM
+//Build 27: 4/27/21 11:27PM
 const url = 'https://script.google.com/macros/s/AKfycbwFPH7SSqFZ3Tn-nDR4DGlkzGMJK0KnRSXlO7wY2QTgfqapdoc/exec'
 const devUrl = 'https://script.google.com/a/sylvaniaschools.org/macros/s/AKfycbx-fJD1dQlWlvZz9eg0YH4ahICo96YWlQLVSgxYLrY/dev'
 
@@ -211,7 +211,7 @@ function handleCardClick() {
 
 function onSignIn(googleUser) {
     profile = googleUser.getBasicProfile();
-    $('.g-signin2 span').html('<span class="badge badge-info">Step 2: Verify Account</span>')
+    //$('.g-signin2 span').html('<span class="badge badge-info">Step 2: Verify Account</span>')
     checkReadyToSubmit()
     try {
     $('input[type="number"]').val(parseInt(profile.getEmail().split("@")[0]))
@@ -226,7 +226,7 @@ function onSignIn(googleUser) {
 }
 
 function onGoogleLoad() {
-    $('.g-signin2 span').html('<span class="badge badge-info">Step 2: Verify Account</span>')
+    //$('.g-signin2 span').html('<span class="badge badge-info">Step 2: Verify Account</span>')
 }
 
 function onFailure(err) {
