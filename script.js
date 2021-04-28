@@ -1,4 +1,4 @@
-//BUILD 23: 4/27/21 11PM
+//Build 25: 4/27/21 11:07PM
 const url = 'https://script.google.com/macros/s/AKfycbwFPH7SSqFZ3Tn-nDR4DGlkzGMJK0KnRSXlO7wY2QTgfqapdoc/exec'
 const devUrl = 'https://script.google.com/a/sylvaniaschools.org/macros/s/AKfycbx-fJD1dQlWlvZz9eg0YH4ahICo96YWlQLVSgxYLrY/dev'
 
@@ -23,7 +23,7 @@ axios.post(url + "?route=getEvents")
     console.log(res)
     data = res.data;
     $('#events-container').empty().append(createEventCards(res.data.events))
-    $('div.event-card button').click(handleButtonClick)
+    //$('div.event-card button').click(handleButtonClick)
     $('div.event-card').click(handleCardClick)
     $('div.event-card').first().remove()
 }).catch((error) => {
@@ -42,7 +42,7 @@ return events.map((event) =>
             <li><strong>Teacher(s):</strong> ${event[h.teachers]}</li>
             <li><strong>Instructions:</strong> ${ (event[h.instructions]) ? event[h.instructions] : ''}
         </ul>
-        <button type=button class='btn btn-primary'>Select</button>
+        <button type=button class='btn btn-primary' disabled>Select</button>
     </div>`)
 )
 }
@@ -104,7 +104,9 @@ $("button#login").click(e => {
                 $('input[name=event]').addClass('bg-danger')
             $('.hideAtStart').show()
             $('#events-container').empty().append(createEventCards(data.events))
-            $('div.event-card button').click(handleButtonClick)
+            $('div.event-card button')
+                .click(handleButtonClick)
+                .removeAttr('disabled')
             $('div.event-card').click(handleCardClick)
             $('div.event-card').first().remove()
             disableEmptyEvents()
@@ -191,8 +193,8 @@ function onReadyToSubmit() {
     $('button#signup')
         .removeClass('bg-primary')
         .addClass('bg-warning')
-        .after($('<span class="spinner-grow spinner-grow-sm text-warning"></span>'))
-        .removeAttr('disabled')
+        //.after($('<span class="spinner-grow spinner-grow-sm text-warning"></span>'))
+        //.removeAttr('disabled')
 }
 
 function checkReadyToSubmit() {
@@ -211,6 +213,12 @@ function onSignIn(googleUser) {
     profile = googleUser.getBasicProfile();
     $('.g-signin2 span').html('<span class="badge badge-info">Step 2: Verify Account</span>')
     checkReadyToSubmit()
+    try {
+    $('input[type="number"]').val(parseInt(profile.getEmail().split("@")[0]))
+    $("button#login").click()
+    } catch (err) {
+        alert("This Google Account is not a valid Sylvania Schools account.",err)
+    }
     //console.log('ID: ' + profile.getId());
     //console.log('Name: ' + profile.getName());
     //console.log('Image URL: ' + profile.getImageUrl());
