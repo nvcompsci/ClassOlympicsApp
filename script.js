@@ -87,6 +87,11 @@ $("button#login").click(e => {
             const myEventName = res.data.student[data.n.s['Event']]
             if (res.data.student[data.n.s['Event']]) {
                 $('button#signup').text('Change Event')
+                .prepend($(`<span 
+                    class="badge badge-secondary">
+                    (Locked) <del>Step 4: Submit</del>
+                    </span>`))
+                .prop('disabled',true)
                 $('input[name=event]').removeClass('bg-danger').addClass('bg-success')
                 const myEvent = data.events.filter(event => event[0] == myEventName)[0]
                 $('input[name=event]').after(createMyEventCard(myEvent))
@@ -179,6 +184,11 @@ function onSignIn(googleUser) {
     //console.log('Image URL: ' + profile.getImageUrl());
     //console.log('Email: ' + profile.getEmail());
   }
+
+function onFailure(err) {
+    console.error(err)
+    $('.g-signin2 span').html('<span class="badge badge-warning">ERROR! Step 4: Verify Google Account</span>')
+}
 
 function headerInds(headers) {
     var inds = {};
