@@ -1,5 +1,5 @@
-//Build 27.2: 4/29/21 9:12AM
-document.querySelector('h1').innerHTML = "Class Olympics (temp unlock for testing)"
+//Build 27.3: 4/29/21 9:43AM
+//document.querySelector('h1').innerHTML = "Class Olympics (temp unlock for testing)"
 const url = 'https://script.google.com/macros/s/AKfycbwFPH7SSqFZ3Tn-nDR4DGlkzGMJK0KnRSXlO7wY2QTgfqapdoc/exec'
 const devUrl = 'https://script.google.com/a/sylvaniaschools.org/macros/s/AKfycbx-fJD1dQlWlvZz9eg0YH4ahICo96YWlQLVSgxYLrY/dev'
 
@@ -194,8 +194,8 @@ function onReadyToSubmit() {
     $('button#signup')
         .removeClass('bg-primary')
         .addClass('bg-warning')
-        .after($('<span class="spinner-grow spinner-grow-sm text-warning"></span>'))
-        .removeAttr('disabled')
+        //.after($('<span class="spinner-grow spinner-grow-sm text-warning"></span>'))
+        //.removeAttr('disabled')
 }
 
 function checkReadyToSubmit() {
