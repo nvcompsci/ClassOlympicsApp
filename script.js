@@ -1,4 +1,4 @@
-//Build 28: 4/30/21 6:00AM
+//Build 35: 4/29/22
 //document.querySelector('h1').innerHTML = "Class Olympics (temp unlock for testing)"
 const url = 'https://script.google.com/macros/s/AKfycbwFPH7SSqFZ3Tn-nDR4DGlkzGMJK0KnRSXlO7wY2QTgfqapdoc/exec'
 const devUrl = 'https://script.google.com/a/sylvaniaschools.org/macros/s/AKfycbx-fJD1dQlWlvZz9eg0YH4ahICo96YWlQLVSgxYLrY/dev'
@@ -202,7 +202,7 @@ function onReadyToSubmit() {
 
 function checkReadyToSubmit() {
     if (profile && currentSelection)
-        onReadyToSubmit()
+        //onReadyToSubmit()
 }
 
 function handleCardClick() {   
