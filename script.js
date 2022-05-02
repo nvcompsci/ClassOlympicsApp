@@ -201,8 +201,9 @@ function onReadyToSubmit() {
 }
 
 function checkReadyToSubmit() {
-    if (profile && currentSelection)
+    if (profile && currentSelection) {
         //onReadyToSubmit()
+    }
 }
 
 function handleCardClick() {   
