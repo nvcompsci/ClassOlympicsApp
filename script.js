@@ -1,4 +1,4 @@
-//Build 36: 5/5/22 6:00am
+//Build 36.01: 5/5/22 6:00am
 //document.querySelector('h1').innerHTML = "Class Olympics (temp unlock for testing)"
 const url = 'https://script.google.com/macros/s/AKfycbwFPH7SSqFZ3Tn-nDR4DGlkzGMJK0KnRSXlO7wY2QTgfqapdoc/exec'
 const devUrl = 'https://script.google.com/a/sylvaniaschools.org/macros/s/AKfycbx-fJD1dQlWlvZz9eg0YH4ahICo96YWlQLVSgxYLrY/dev'
@@ -53,9 +53,9 @@ function createMyEventCard(event) {
             <h6>My Event: ${event[h.name]}</h6>
             <ul>
                 <li><strong>Description:</strong> ${event[h.desc]}</li>
-                <li><strong>Location:</strong> ${event[h.location]}</li>
+                <li><strong>Location:</strong> ${/*event[h.location]*/'TBA'}</li>
                 <li><strong>Teacher(s):</strong> ${event[h.teachers]}</li>
-                <li><strong>Instructions:</strong> ${ (event[h.instructions]) ? event[h.instructions] : ''}
+                <li><strong>Instructions:</strong> ${ (event[h.instructions]) ? /*event[h.instructions]*/'TBA' : 'TBA'}
             </ul>
         </div>`)    
     }
